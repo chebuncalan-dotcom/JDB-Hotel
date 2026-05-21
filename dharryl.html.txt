@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dharryl Hotel | Luxury & Comfort</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Loaded jsPDF for voucher generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#FFFFFF',
+                        cream: '#F8F4E9',
+                        gold: '#D4AF37',
+                        lightgray: '#E5E5E5',
+                        lightblue: '#BFD7EA',
+                        darkgray: '#666666'
+                    },
+                    fontFamily: {
+                        elegant: ['Playfair Display', 'serif'],
+                        sans: ['Montserrat', 'sans-serif']
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .text-shadow { text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); }
+            .transition-custom { transition: all 0.4s ease; }
+            .scroll-smooth { scroll-behavior: smooth; }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="bg-primary text-darkgray scroll-smooth font-sans pt-16">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full top-0 z-50 bg-primary/95 backdrop-blur-md shadow-md transition-all duration-300">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="#" class="text-[clamp(1.2rem,2vw,1.8rem)] font-elegant font-bold text-gold">Dharryl Hotel</a>
+            <div class="hidden md:flex gap-8">
+                <a href="#home" class="font-medium hover:text-gold transition-custom">Home</a>
+                <a href="#rooms" class="font-medium hover:text-gold transition-custom">Rooms</a>
+                <a href="#reservation" class="font-medium hover:text-gold transition-custom">Reservations</a>
+                <a href="#services" class="font-medium hover:text-gold transition-custom">Services</a>
+                <a href="#gallery" class="font-medium hover:text-gold transition-custom">Gallery</a>
+                <a href="#about" class="font-medium hover:text-gold transition-custom">About Us</a>
+            </div>
+            <button class="md:hidden text-darkgray text-xl" onclick="toggleMenu()">
+                <i class="fa fa-bars"></i>
+            </button>
+        </div>
+        <!-- Mobile Dropdown Menu -->
+        <div id="mobileMenu" class="hidden md:hidden bg-primary px-4 py-4 space-y-3 shadow-inner">
+            <a href="#home" class="block font-medium hover:text-gold transition-custom">Home</a>
+            <a href="#rooms" class="block font-medium hover:text-gold transition-custom">Rooms</a>
+            <a href="#reservation" class="block font-medium hover:text-gold transition-custom">Reservations</a>
+            <a href="#services" class="block font-medium hover:text-gold transition-custom">Services</a>
+            <a href="#gallery" class="block font-medium hover:text-gold transition-custom">Gallery</a>
+            <a href="#about" class="block font-medium hover:text-gold transition-custom">About Us</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="min-h-[calc(100vh-4rem)] flex items-center justify-center relative overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1566073771259-6a8506099947?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80" alt="Luxury Hotel" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-r from-cream/80 to-lightblue/40"></div>
+        </div>
+        <div class="container mx-auto px-4 z-10 text-center">
+            <h1 class="font-elegant font-bold text-[clamp(2rem,5vw,4rem)] text-darkgray mb-4 text-shadow">Welcome to Dharryl Hotel</h1>
+            <p class="text-[clamp(1rem,2vw,1.3rem)] max-w-2xl mx-auto mb-8 text-gray-700">Experience the perfect blend of luxury, comfort, and world-class hospitality. We create unforgettable stays designed around you.</p>
+            <div class="flex flex-wrap gap-4 justify-center">
+                <a href="#reservation" class="bg-gold hover:bg-gold/90 text-white px-8 py-3 rounded-full font-semibold shadow-lg hover:shadow-xl transition-custom transform hover:-translate-y-1">Book Now</a>
+                <a href="#rooms" class="bg-primary/80 hover:bg-primary text-darkgray border-2 border-gold px-8 py-3 rounded-full font-semibold shadow-lg hover:shadow-xl transition-custom transform hover:-translate-y-1">Explore Rooms</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Rooms Section -->
+    <section id="rooms" class="py-20 bg-cream/30">
+        <div class="container mx-auto px-4">
+            <h2 class="font-elegant font-bold text-[clamp(1.8rem,3vw,2.8rem)] text-center mb-16 text-darkgray">Our Luxury Accommodations</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Standard Room -->
+                <div class="bg-primary rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-custom transform hover:-translate-y-2">
+                    <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Standard Room" class="w-full h-56 object-cover">
+                    <div class="p-5">
+                        <h3 class="font-elegant font-semibold text-xl mb-2">Standard Room</h3>
+                        <p class="text-gold font-bold text-lg mb-3">₱1,500 <span class="text-sm font-normal text-darkgray">/ night</span></p>
+                        <p class="text-sm mb-4">Cozy and comfortable room perfect for solo travelers or couples, featuring modern essentials.</p>
+                        <h4 class="font-semibold mb-2 text-sm">Amenities:</h4>
+                        <ul class="text-xs text-gray-600 mb-5 space-y-1">
+                            <li><i class="fa fa-check text-gold mr-2"></i>Free Wi-Fi</li>
+                            <li><i class="fa fa-check text-gold mr-2"></i>Flat-screen TV</li>
+                            <li><i class="fa fa-check text-gold mr-2"></i>Air Conditioning</li>
+                            <li><i class="fa fa-check text-gold mr-2"></i>Private Bathroom</li>
+                        </ul>
+                        <button onclick="selectRoom('Standard Room', 1500)" class="block w-full text-center bg-gold hover:bg-gold/90 text-white py-2 rounded-lg transition-custom font-medium">Select Room</button>
+                    </div>
+                </div>
+
+                <!-- Deluxe Room -->
+                <div class="bg-primary rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-custom transform hover:-translate-y-2">
+                    <img src="https://images.unsplash.com/photo-1596387452628-19e7358d6a3a?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Deluxe Room" class="w-full h-56 object-cover">
+                    <div class="p-5">
+                        <h3 class="font-elegant font-semibold text-xl mb-2">Deluxe Room</h3>
+                        <p class="text-gold font-bold text-lg mb-3">₱3,000 <span class="text-sm font-normal text-darkgray">/ night</span></p>
+                        <p class="text-sm mb-4">Spacious room with premium furnishings, offering beautiful views and enhanced comfort.</p>
+                        <h4 class="font-semibold mb-2 text-sm">Amenities:</h4>
+                        <ul class="text-xs text-gray-600 mb-5 space-y-1">
+                            <li><i class="fa fa-check text-gold mr-2"></i>All Standard Amenities</li>
+                            <li><i class="fa fa-check text-gold mr-2"></i>Balcony</li>
+                            <li><i class="fa fa-check text-gold mr-2"></i>Mini Bar</li>
+                            <li><i class="fa fa-check text-gold mr-2"></i>Premium Toiletries</li>
+                        </ul>
+                        <button onclick="selectRoom('Deluxe Room', 3000)" class="block w-full text-center bg-gold hover:bg-gold/90 text-white py-2 rounded-lg transition-custom font-medium">Select Room</button>
+                    </div>
+                </div>
+
+                <!-- Executive Suite -->
+                <div class="bg-primary rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-custom transform hover:-translate-y-2">
+                    <img src="https://images.unsplash.com/photo-1578683010236-d716f9a3f461?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Executive Suite" class="w-full h-56 object-cover">
+                    <div class="p-5">
+                        <h3 class="font-elegant font-semibold text-xl mb-2">Executive Suite</h3>
+                        <p class="text-gold font-bold text-lg mb-3">₱5,000 <span class="text-sm font-normal text-darkgray">/ night</span></p>
+                        <p class="text-sm mb-4">Luxurious suite with separate living and sleeping areas, designed for business and leisure.</p>
+                        <h4 class="font-semibold mb-2 text-sm">Amenities:</h4>
+                        <ul class="text-xs text-gray-600 mb-5 space-y-1">
+                            <li><i class="fa fa-check text-gold mr-2"></i>All Deluxe Amenities</li>
+                            <li><i class="fa fa-check text-gold mr-2"></i>Separate Living Room</li>
+                            <li><i class="fa fa-check text-gold mr-2"></i>Work Desk</li>
+                            <li><i class="fa fa-check text-gold mr-2"></i>Complimentary Breakfast</li>
+                        </ul>
+                        <button onclick="selectRoom('Executive Suite', 5000)" class="block w-full text-center bg-gold hover:bg-gold/90 text-white py-2 rounded-lg transition-custom font-medium">Select Room</button>
+                    </div>
+                </div>
+
+                <!-- Presidential Suite -->
+                <div class="bg-primary rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-custom transform hover:-translate-y-2">
+                    <img src="https://images.unsplash.com/photo-1587985838699-9a86936c41d2?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Presidential Suite" class="w-full h-56 object-cover">
+                    <div class="p-5">
+                        <h3 class="font-elegant font-semibold text-xl mb-2">Presidential Suite</h3>
+                        <p class="text-gold font-bold text-lg mb-3">₱10,000 <span class="text-sm font-normal text-darkgray">/ night</span></p>
+                        <p class="text-sm mb-4">Our most exclusive accommodation, featuring expansive space, luxury decor, and personalized service.</p>
+                        <h4 class="font-semibold mb-2 text-sm">Amenities:</h4>
+                        <ul class="text-xs text-gray-600 mb-5 space-y-1">
+                            <li><i class="fa fa-check text-gold mr-2"></i>All Executive Amenities</li>
+                            <li><i class="fa fa-check text-gold mr-2"></i>Private Terrace</li>
+                            <li><i class="fa fa-check text-gold mr-2"></i>Luxury Bathtub</li>
+                            <li><i class="fa fa-check text-gold mr-2"></i>24/7 Butler Service</li>
+                        </ul>
+                        <button onclick="selectRoom('Presidential Suite', 10000)" class="block w-full text-center bg-gold hover:bg-gold/90 text-white py-2 rounded-lg transition-custom font-medium">Select Room</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reservation Section -->
+    <section id="reservation" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="font-elegant font-bold text-[clamp(1.8rem,3vw,2.8rem)] text-center mb-16 text-darkgray">Make Your Reservation</h2>
+            <div class="max-w-4xl mx-auto bg-cream/20 rounded-2xl shadow-xl p-8 md:p-10">
+                <form id="bookingForm" class="grid grid-cols-1 md:grid-cols-2 gap-6" onsubmit="handleFormSubmit(event)">
+                    
+                    <!-- Personal Details -->
+                    <div>
+                        <label class="block mb-2 font-medium">Guest Name <span class="text-red-500">*</span></label>
+                        <input type="text" id="guestName" required class="w-full px-4 py-2 border border-lightgray rounded-lg focus:outline-none focus:ring-2 focus:ring-gold">
+                    </div>
+                    <div>
+                        <label class="block mb-2 font-medium">Age <span class="text-red-500">*</span></label>
+                        <select id="age" required class="w-full px-4 py-2 border border-lightgray rounded-lg focus:outline-none focus:ring-2 focus:ring-gold">
+                            <option value="">Select Age</option>
+                            <script>for(let i=18; i<=100; i++) document.write(`<option value="${i}">${i}</option>`);</script>
+                        </select>
+                    </div>
+                    <div class="md:col-span-2">
+                        <label class="block mb-2 font-medium">Address <span class="text-red-500">*</span></label>
+                        <input type="text" id="address" required class="w-full px-4 py-2 border border-lightgray rounded-lg focus:outline-none focus:ring-2 focus:ring-gold">
+                    </div>
+                    <div>
+                        <label class="block mb-2 font-medium">Contact Number <span class="text-red-500">*</span></label>
+                        <input type="tel" id="contact" required class="w-full px-4 py-2 border border-lightgray rounded-lg focus:outline-none focus:ring-2 focus:ring-gold">
+                    </div>
+                    <div>
+                        <label class="block mb-2 font-medium">Email Address <span class="text-red-500">*</span></label>
+                        <input type="email" id="email" required class="w-full px-4 py-2 border border-lightgray rounded-lg focus:outline-none focus:ring-2 focus:ring-gold">
+                    </div>
+                    <div>
+                        <label class="block mb-2 font-medium">Nationality <span class="text-red-500">*</span></label>
+                        <select id="nationality" required class="w-full px-4 py-2 border border-lightgray rounded-lg focus:outline-none focus:ring-2 focus:ring-gold">
+                            <option value="">Select</option>
+                            <option value="Filipino">Filipino</option>
+                            <option value="Asian">Other Asian</option>
+                            <option value="European">European</option>
+                            <option value="American">American</option>
+                            <option value="Australian">Australian</option>
+                        </select>
+                    </div>
+
+                    <!-- Room Dropdown (Linked to Pricing Engine) -->
+                    <div>
+                        <label class="block mb-2 font-medium">Select Accommodation <span class="text-red-500">*</span></label>
+                        <select id="roomType" required onchange="updatePriceFromDropdown()" class="w-full px-4 py-2 border border-lightgray rounded-lg focus:outline-none focus:ring-2 focus:ring-gold">
+                            <option value="" data-price="0">Choose room...</option>
+                            <option value="Standard Room" data-price="1500">Standard Room (₱1,500)</option>
+                            <option value="Deluxe Room" data-price="3000">Deluxe Room (₱3,000)</option>
+                            <option value="Executive Suite" data-price="5000">Executive Suite (₱5,000)</option>
+                            <option value="Presidential Suite" data-price="10000">Presidential Suite (₱10,000)</option>
+                        </select>
+                    </div>
+
+                    <!-- Dates & Dynamic Metrics -->
+                    <div>
+                        <label class="block mb-2 font-medium">Check-in Date <span class="text-red-500">*</span></label>
+                        <input type="date" id="checkIn" required onchange="calculateNights()" class="w-full px-4 py-2 border border-lightgray rounded-lg focus:outline-none focus:ring-2 focus:ring-gold">
+                    </div>
+                    <div>
+                        <label class="block mb-2 font-medium">Check-out Date <span class="text-red-500">*</span></label>
+                        <input type="date" id="checkOut" required onchange="calculateNights()" class="w-full px-4 py-2 border border-lightgray rounded-lg focus:outline-none focus:ring-2 focus:ring-gold">
+                    </div>
+
+                    <!-- Read-Only Calculations Structure -->
+                    <div class="md:col-span-2 grid grid-cols-2 gap-4 bg-cream p-4 rounded-xl border border-gold/30 my-2">
+                        <div>
+                            <p class="text-sm font-semibold text-darkgray/80">Total Duration:</p>
+                            <p id="daysDisplay" class="text-xl font-bold text-darkgray">0 Night(s)</p>
+                        </div>
+                        <div>
+                            <p class="text-sm font-semibold text-darkgray/80">Estimated Total Cost:</p>
+                            <p id="priceDisplay" class="text-xl font-bold text-gold">₱0.00</p>
+                        </div>
+                    </div>
+
+                    <div class="md:col-span-2">
+                        <button type="submit" class="w-full bg-gold hover:bg-gold/90 text-white font-semibold py-3 rounded-lg shadow-lg transition-custom text-center">
+                            Confirm Booking & Generate Voucher
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-20 bg-cream/30">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="font-elegant font-bold text-[clamp(1.8rem,3vw,2.8rem)] mb-16 text-darkgray">World-Class Services</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="bg-white p-8 rounded-xl shadow-md">
+                    <div class="text-4xl text-gold mb-4"><i class="fa fa-cutlery"></i></div>
+                    <h3 class="text-lg font-semibold mb-2">Fine Dining</h3>
+                    <p class="text-sm text-gray-600">Savor exquisite culinary dishes crafted by international award-winning master chefs.</p>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow-md">
+                    <div class="text-4xl text-gold mb-4"><i class="fa fa-snowflake-o"></i></div>
+                    <h3 class="text-lg font-semibold mb-2">Luxury Spa</h3>
+                    <p class="text-sm text-gray-600">Rejuvenate your body and mind with signature wellness therapies.</p>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow-md">
+                    <div class="text-4xl text-gold mb-4"><i class="fa fa-life-ring"></i></div>
+                    <h3 class="text-lg font-semibold mb-2">Infinity Pool</h3>
+                    <p class="text-sm text-gray-600">Relax along breathtaking panoramic views of crystalline skyline waters.</p>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow-md">
+                    <div class="text-4xl text-gold mb-4"><i class="fa fa-concierge-bell"></i></div>
+                    <h3 class="text-lg font-semibold mb-2">24/7 Concierge</h3>
+                    <p class="text-sm text-gray-600">Experience high-touch luxury service customized instantly around your timeline requests.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="font-elegant font-bold text-[clamp(1.8rem,3vw,2.8rem)] text-center mb-16 text-darkgray">Visual Journey</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                <div class="overflow-hidden rounded-lg h-64"><img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover hover:scale-110 transition duration-500" alt="Lobby"></div>
+                <div class="overflow-hidden rounded-lg h-64"><img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover hover:scale-110 transition duration-500" alt="Poolside"></div>
+                <div class="overflow-hidden rounded-lg h-64"><img src="https://images.unsplash.com/photo-1544148103-0773bf10d330?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover hover:scale-110 transition duration-500" alt="Bar"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-cream/20 border-t border-lightgray">
+        <div class="container mx-auto px-4 max-w-3xl text-center">
+            <h2 class="font-elegant font-bold text-[clamp(1.8rem,3vw,2.8rem)] mb-6 text-darkgray">Our Story</h2>
+            <p class="text-gray-700 leading-relaxed mb-6">
+                Established with a vision to revolutionize high-end comfort hospitality, Dharryl Hotel bridges premium contemporary architectural design accents with warm domestic familiarity.
+            </p>
+            <p class="text-gold font-elegant italic text-lg">"Your ultimate sanctuary away from home."</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-darkgray text-white/90 py-8 text-center text-sm">
+        <p>&copy; 2026 Dharryl Hotel. Built for luxury, comfort, and timeless stays.</p>
+    </footer>
+
+    <!-- Script Implementations Logic Engine -->
+    <script>
+        let selectedRoomPrice = 0;
+
+        function toggleMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+
+        function selectRoom(roomName, price) {
+            const roomDropdown = document.getElementById('roomType');
+            roomDropdown.value = roomName;
+            selectedRoomPrice = price;
+            
+            calculateNights();
+            
+            // Auto smooth scroll to reservation panel
+            document.getElementById('reservation').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function updatePriceFromDropdown() {
+            const dropdown = document.getElementById('roomType');
+            const selectedOption = dropdown.options[dropdown.selectedIndex];
+            selectedRoomPrice = parseFloat(selectedOption.getAttribute('data-price')) || 0;
+            calculateNights();
+        }
+
+        function calculateNights() {
+            const checkInVal = document.getElementById('checkIn').value;
+            const checkOutVal = document.getElementById('checkOut').value;
+            
+            if (!checkInVal || !checkOutVal) return;
+
+            const d1 = new Date(checkInVal);
+            const d2 = new Date(checkOutVal);
+            
+            // Enforce sequential chronology 
+            if (d2 <= d1) {
+                alert("Check-out date must be strictly after the check-in date.");
+                document.getElementById('checkOut').value = "";
+                return;
+            }
+
+            const timeDiff = Math.abs(d2.getTime() - d1.getTime());
+            const totalNights = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
+            
+            document.getElementById('daysDisplay').innerText = `${totalNights} Night(s)`;
+            
+            const totalCost = totalNights * selectedRoomPrice;
+            document.getElementById('priceDisplay').innerText = `₱${totalCost.toLocaleString('en-US', {minimumFractionDigits: 2})}`;
+        }
+
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            
+            // Destructure variables from standard elements
+            const name = document.getElementById('guestName').value;
+            const room = document.getElementById('roomType').value;
+            const checkIn = document.getElementById('checkIn').value;
+            const checkOut = document.getElementById('checkOut').value;
+            const totalCostText = document.getElementById('priceDisplay').innerText;
+            const totalNightsText = document.getElementById('daysDisplay').innerText;
+
+            if(!room) {
+                alert("Please select a valid accommodation room type tier.");
+                return;
+            }
+
+            // Fire custom dynamic PDF Builder Engine via local Client Canvas
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            // Structure Elegant Styling Header layout assets
+            doc.setFillColor(212, 175, 55); // Premium Gold Brand color
+            doc.rect(0, 0, 210, 40, 'F');
+
+            doc.setTextColor(255, 255, 255);
+            doc.setFont("playfair", "bold");
+            doc.setFontSize(24);
+            doc.text("DHARRYL HOTEL VOUCHER", 20, 26);
+
+            // Invoice Text Details Metas Block
+            doc.setTextColor(102, 102, 102);
+            doc.setFont("montserrat", "normal");
+            doc.setFontSize(12);
+
+            doc.text(`Issued To: ${name}`, 20, 60);
+            doc.text(`Age: ${document.getElementById('age').value}`, 20, 68);
+            doc.text(`Nationality: ${document.getElementById('nationality').value}`, 20, 76);
+            doc.text(`Contact: ${document.getElementById('contact').value}`, 20, 84);
+            doc.text(`Email: ${document.getElementById('email').value}`, 20, 92);
+
+            doc.setDrawColor(229, 229, 229);
+            doc.line(20, 102, 190, 102);
+
+            // Reservation Specifications Meta Table
+            doc.setFontSize(14);
+            doc.setTextColor(212, 175, 55);
+            doc.text("Reservation Summary", 20, 115);
+
+            doc.setFontSize(12);
+            doc.setTextColor(102, 102, 102);
+            doc.text(`Selected Tier: ${room}`, 20, 127);
+            doc.text(`Check-In: ${checkIn}`, 20, 135);
+            doc.text(`Check-Out: ${checkOut}`, 20, 143);
+            doc.text(`Duration: ${totalNightsText}`, 20, 151);
+
+            doc.setDrawColor(212, 175, 55);
+            doc.line(20, 161, 190, 161);
+
+            // Grand Total Pricing Breakdown display banner metric
+            doc.setFontSize(16);
+            doc.setTextColor(51, 51, 51);
+            doc.text(`Grand Total Amount Due: ${totalCostText}`, 20, 175);
+
+            doc.setFontSize(10);
+            doc.setTextColor(153, 153, 153);
+            doc.text("Thank you for choosing luxury. Please present this voucher upon check-in.", 20, 200);
+
+            // Save system document output trigger file
+            doc.save(`Dharryl_Hotel_Voucher_${name.replace(/\s+/g, '_')}.pdf`);
+            
+            alert(`Thank you, ${name}! Your booking has been recorded, and your PDF Travel Voucher has been downloaded.`);
+        }
+    </script>
+</body>
+</html>
